@@ -1,0 +1,16 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
+}
+
+// {
+//   "compilerOptions": {
+//     "strict": true,           // enables all of the below
+//     "noImplicitAny": true,    // can't use variables without a type
+//     "strictNullChecks": true, // null/undefined must be handled explicitly
+//     "strictFunctionTypes": true
+//   }
+// }
