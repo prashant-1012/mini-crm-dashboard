@@ -2,11 +2,13 @@ import { useCampaigns } from '../features/campaigns/hooks/useCampaigns';
 import CampaignBarChart from '../features/campaigns/components/CampaignBarChart';
 import LeadSourceDonut from '../features/campaigns/components/LeadSourceDonut';
 import LeadTrendLine from '../features/campaigns/components/LeadTrendLine';
+import PageWrapper from '../components/ui/PageWrapper';
 
 const CampaignsPage = () => {
   const { campaigns, leadSources, leadTrend, isLoading, error } = useCampaigns();
 
   return (
+    <PageWrapper>
     <div className="flex flex-col gap-6">
 
       {/* Page header */}
@@ -46,6 +48,7 @@ const CampaignsPage = () => {
 
       </div>
     </div>
+    </PageWrapper>
   );
 };
 

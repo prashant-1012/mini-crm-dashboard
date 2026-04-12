@@ -4,6 +4,7 @@ import DashboardPage from '../pages/DashboardPage';
 import LeadsPage from '../pages/LeadsPage';
 import CampaignsPage from '../pages/CampaignsPage';
 import ActivityPage from '../pages/ActivityPage';
+import NotFoundPage from '../pages/NotFoundPage';
 
 
 const AppRouter = () => {
@@ -18,6 +19,8 @@ const AppRouter = () => {
           <Route path="campaigns" element={<CampaignsPage />} />
           <Route path="activity" element={<ActivityPage />} />
         </Route>
+        {/* Catches any URL that didn't match above */}
+      <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );

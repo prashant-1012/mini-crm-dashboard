@@ -1,11 +1,13 @@
 import { useActivityFeed } from '../features/activityFeed/hooks/useActivityFeed';
 import ActivityItem from '../features/activityFeed/components/ActivityItem';
 import LiveIndicator from '../features/activityFeed/components/LiveIndicator';
+import PageWrapper from '../components/ui/PageWrapper';
 
 const ActivityPage = () => {
   const { events, isLive, toggleLive, clearFeed } = useActivityFeed();
 
   return (
+    <PageWrapper>
     <div className="flex flex-col gap-6 max-w-2xl">
 
       {/* Page header */}
@@ -53,6 +55,7 @@ const ActivityPage = () => {
       )}
 
     </div>
+    </PageWrapper>
   );
 };
 

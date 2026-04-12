@@ -2,6 +2,7 @@ import { useLeads } from '../features/leads/hooks/useLeads';
 import LeadsTable from '../features/leads/components/LeadsTable';
 import LeadsToolbar from '../features/leads/components/LeadsToolbar';
 import Pagination from '../components/ui/Pagination';
+import PageWrapper from '../components/ui/PageWrapper';
 
 const LeadsPage = () => {
   const {
@@ -22,6 +23,7 @@ const LeadsPage = () => {
   const isLoading = status === 'idle' || status === 'loading';
 
   return (
+    <PageWrapper>
     <div className="flex flex-col gap-6">
 
       {/* Page header */}
@@ -68,6 +70,7 @@ const LeadsPage = () => {
 
       </div>
     </div>
+    </PageWrapper>
   );
 };
 

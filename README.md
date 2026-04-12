@@ -1,73 +1,116 @@
-# React + TypeScript + Vite
+# ⚡ Mini CRM Analytics Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A production-grade CRM Analytics Dashboard built to demonstrate
+senior-level React + TypeScript frontend architecture.
 
-Currently, two official plugins are available:
+![Dashboard Preview](https://placehold.co/1200x630/1e293b/ffffff?text=Mini+CRM+Dashboard)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🔗 Links
 
-## React Compiler
+- **Live Demo:** [your-vercel-url.vercel.app](#) ← update after deploy
+- **GitHub:** [github.com/YOUR_USERNAME/mini-crm-dashboard](#)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠 Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+![React](https://img.shields.io/badge/React_18-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Redux Toolkit](https://img.shields.io/badge/Redux_Toolkit-764ABC?style=for-the-badge&logo=redux&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![Recharts](https://img.shields.io/badge/Recharts-22B5BF?style=for-the-badge)
+![TanStack Table](https://img.shields.io/badge/TanStack_Table_v8-FF4154?style=for-the-badge)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## ✨ Features
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- **Overview Dashboard** — KPI cards with trend indicators and
+  campaign charts preview
+- **Leads Management** — Sortable, filterable, paginated data table
+  with status badges using TanStack Table v8
+- **Campaign Analytics** — Bar chart, donut chart, and line chart
+  built with Recharts
+- **Real-time Activity Feed** — Simulated live CRM events using
+  `setInterval` with pause/resume control
+- **Dark Mode** — Full dark theme with toggle, persisted to
+  `localStorage`
+- **Skeleton Loaders** — Every data section has a loading skeleton
+- **Typed throughout** — Strict TypeScript with generics,
+  union types, and typed Redux state
+
+---
+
+## 🏗 Architecture Highlights
+
+### Feature-Sliced Structure
+```
+src/
+├── api/              # Axios instance + typed API functions
+├── app/              # Redux store with RootState and AppDispatch
+├── components/       # Shared UI (ChartCard, Skeleton, Pagination)
+│   ├── layout/       # AppShell, Sidebar, Topbar
+│   └── ui/           # Atomic components
+├── features/         # Feature modules (self-contained)
+│   ├── overview/     # KPI slice, hook, components
+│   ├── leads/        # Leads slice, hook, table, filters
+│   ├── campaigns/    # Campaign slice, hook, charts
+│   └── activityFeed/ # Activity slice, hook, live feed
+├── hooks/            # Global typed Redux hooks
+├── pages/            # Thin route-level page components
+├── routes/           # React Router v6 config
+├── types/            # Shared TypeScript interfaces
+└── utils/            # Pure utility functions
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Key Patterns Used
+- **Custom hooks** — each feature exports a `useFeatureName` hook
+  that encapsulates all Redux logic, keeping pages clean
+- **Typed async thunks** — `createAsyncThunk<ReturnType, ArgType>`
+  with fully typed `action.payload`
+- **useMemo for derived data** — filtering and pagination computed
+  values are memoized to prevent unnecessary recalculation
+- **Smart/dumb component split** — container components handle data,
+  presentational components handle UI only
+- **Generic API types** — `ApiResponse<T>` and
+  `PaginatedResponse<T>` work across all endpoints
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🚀 Running Locally
+
+```bash
+# Clone the repository
+git clone https://github.com/YOUR_USERNAME/mini-crm-dashboard.git
+cd mini-crm-dashboard
+
+# Install dependencies
+npm install
+
+# Start both dev server and mock API together
+npm run dev:all
 ```
+
+App runs at `http://localhost:5173`
+Mock API runs at `http://localhost:4000`
+
+---
+
+## 📁 Mock API Endpoints
+
+| Endpoint         | Description                    |
+|-----------------|--------------------------------|
+| `GET /kpis`      | KPI card data                  |
+| `GET /leads`     | Full leads list                |
+| `GET /campaigns` | Campaign performance data      |
+| `GET /leadSources` | Lead source breakdown        |
+| `GET /leadTrend` | Monthly lead trend data        |
+
+---
+
+## 👨‍💻 Author
+
+**Prashant Kumar**
+Frontend Developer · 4+ years experience
+[LinkedIn](#) · [GitHub](#) · [Portfolio](#)
