@@ -1,10 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
+import overviewReducer from '../features/overview/overviewSlice';
+import themeReducer from '../features/theme/themeSlice';
 
-// We'll add slice reducers here as we build each feature
 export const store = configureStore({
   reducer: {
-    // leads: leadsReducer,   ← we'll uncomment these as we build
-    // campaigns: campaignsReducer,
+    overview: overviewReducer,
+    theme: themeReducer,
   },
 });
 

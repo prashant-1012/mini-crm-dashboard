@@ -1,6 +1,37 @@
 {
+  "kpis": [
+    {
+      "id": "total-leads",
+      "title": "Total Leads",
+      "value": "2,847",
+      "change": 12.4,
+      "changeLabel": "vs last month"
+    },
+    {
+      "id": "conversion-rate",
+      "title": "Conversion Rate",
+      "value": "68.4",
+      "change": 4.2,
+      "changeLabel": "vs last month",
+      "suffix": "%"
+    },
+    {
+      "id": "revenue",
+      "title": "Revenue",
+      "value": "12,40,000",
+      "change": 8.1,
+      "changeLabel": "vs last month",
+      "prefix": "₹"
+    },
+    {
+      "id": "active-campaigns",
+      "title": "Active Campaigns",
+      "value": "24",
+      "change": -2,
+      "changeLabel": "vs last month"
+    }
+  ],
   "leads": [],
   "campaigns": [],
-  "kpis": [],
   "activities": []
 }
