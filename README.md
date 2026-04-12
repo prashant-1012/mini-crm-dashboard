@@ -3,12 +3,12 @@
 A production-grade CRM Analytics Dashboard built to demonstrate
 senior-level React + TypeScript frontend architecture.
 
-![Dashboard Preview](https://placehold.co/1200x630/1e293b/ffffff?text=Mini+CRM+Dashboard)
+![Dashboard Preview](public/screenshots/dashboard.png)
 
 ## 🔗 Links
 
-- **Live Demo:** [your-vercel-url.vercel.app](#) ← update after deploy
-- **GitHub:** [github.com/YOUR_USERNAME/mini-crm-dashboard](#)
+- **Live Demo:** [mini-crm-dashboard-one.vercel.app](https://mini-crm-dashboard-one.vercel.app/)
+- **GitHub:** [github.com/prashant-1012/mini-crm-dashboard](https://github.com/prashant-1012/mini-crm-dashboard)
 
 ---
 
@@ -82,7 +82,7 @@ src/
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/mini-crm-dashboard.git
+git clone https://github.com/prashant-1012/mini-crm-dashboard.git
 cd mini-crm-dashboard
 
 # Install dependencies
