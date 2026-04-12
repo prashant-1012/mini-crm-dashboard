@@ -1,19 +1,21 @@
 import { Outlet } from 'react-router-dom';
 import Sidebar from './Sidebar';
+import { TopbarWithTitle } from './Topbar';
 
 const AppShell = () => {
   return (
-    // h-screen = poori screen ki height
-    // overflow-hidden = bahar scroll nahi hoga
     <div className="flex h-screen overflow-hidden bg-gray-50">
 
       <Sidebar />
 
-      {/* Right side — main content area */}
-      <main className="flex-1 overflow-y-auto">
-        {/* Yahan pe matched page render hoga */}
-        <Outlet />
-      </main>
+      {/* Right side: stacked vertically — Topbar on top, content below */}
+      <div className="flex flex-col flex-1 overflow-hidden">
+        <TopbarWithTitle />
+
+        <main className="flex-1 overflow-y-auto p-6">
+          <Outlet />
+        </main>
+      </div>
 
     </div>
   );
