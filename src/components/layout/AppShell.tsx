@@ -1,14 +1,20 @@
 import { Outlet } from 'react-router-dom';
+import Sidebar from './Sidebar';
 
-// Outlet is React Router's way of saying "render the matched child route here"
-// We'll replace this with a real Sidebar + Topbar in the next step
 const AppShell = () => {
   return (
+    // h-screen = poori screen ki height
+    // overflow-hidden = bahar scroll nahi hoga
     <div className="flex h-screen overflow-hidden bg-gray-50">
-      {/* Sidebar will go here */}
-      <main className="flex-1 overflow-y-auto p-6">
+
+      <Sidebar />
+
+      {/* Right side — main content area */}
+      <main className="flex-1 overflow-y-auto">
+        {/* Yahan pe matched page render hoga */}
         <Outlet />
       </main>
+
     </div>
   );
 };
