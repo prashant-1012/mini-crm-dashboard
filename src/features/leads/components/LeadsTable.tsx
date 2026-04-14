@@ -62,6 +62,19 @@ const COLUMNS = [
   }),
 ];
 
+// Responsive column visibility:
+// Name, Status, Value → always visible
+// Email             → sm+ (hidden on mobile)
+// Source, AssignedTo → md+ (hidden on mobile + tablet)
+const COLUMN_CLASSES: Record<string, string> = {
+  name:       '',
+  email:      'hidden sm:table-cell',
+  status:     '',
+  source:     'hidden md:table-cell',
+  value:      '',
+  assignedTo: 'hidden md:table-cell',
+};
+
 // Skeleton row shown while data is loading
 const TableRowSkeleton = () => (
   <tr>
@@ -97,7 +110,7 @@ const LeadsTable = ({ data, isLoading }: LeadsTableProps) => {
                 <th
                   key={header.id}
                   onClick={header.column.getToggleSortingHandler()}
-                  className="px-4 py-3 text-left text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider select-none cursor-pointer hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
+                  className={`px-4 py-3 text-left text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider select-none cursor-pointer hover:text-gray-700 dark:hover:text-gray-200 transition-colors ${COLUMN_CLASSES[header.column.id] ?? ''}`}
                 >
                   <div className="flex items-center gap-1.5">
                     {flexRender(header.column.columnDef.header, header.getContext())}
@@ -121,7 +134,7 @@ const LeadsTable = ({ data, isLoading }: LeadsTableProps) => {
                   className="hover:bg-gray-50 dark:hover:bg-gray-800/40 transition-colors"
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <td key={cell.id} className="px-4 py-3.5 whitespace-nowrap">
+                    <td key={cell.id} className={`px-4 py-3.5 whitespace-nowrap ${COLUMN_CLASSES[cell.column.id] ?? ''}`}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </td>
                   ))}

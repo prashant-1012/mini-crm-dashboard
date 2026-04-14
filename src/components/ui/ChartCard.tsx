@@ -6,7 +6,7 @@ interface ChartCardProps {
 }
 
 const ChartCard = ({ title, subtitle, children, className = '' }: ChartCardProps) => (
-  <div className={`bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 p-6 flex flex-col gap-4 ${className}`}>
+  <div className={`bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 p-4 sm:p-6 flex flex-col gap-4 ${className}`}>
     <div>
       <h3 className="text-base font-semibold text-gray-900 dark:text-white">
         {title}

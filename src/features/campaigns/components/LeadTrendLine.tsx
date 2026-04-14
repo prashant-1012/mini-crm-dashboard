@@ -35,46 +35,48 @@ const LeadTrendLine = ({ data, isLoading }: LeadTrendLineProps) => (
     {isLoading ? (
       <LineSkeleton />
     ) : (
-      <ResponsiveContainer width="100%" height={288}>
-        <LineChart data={data}>
-          <CartesianGrid
-            strokeDasharray="3 3"
-            stroke="#e5e7eb"
-            vertical={false}
-          />
-          <XAxis
-            dataKey="month"
-            tick={{ fontSize: 12, fill: '#9ca3af' }}
-            axisLine={false}
-            tickLine={false}
-          />
-          <YAxis
-            tick={{ fontSize: 12, fill: '#9ca3af' }}
-            axisLine={false}
-            tickLine={false}
-          />
-          <Tooltip content={<ChartTooltip />} />
-          <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '16px' }} />
-          <Line
-            type="monotone"
-            dataKey="newLeads"
-            name="New Leads"
-            stroke="#3b82f6"
-            strokeWidth={2.5}
-            dot={<Dot r={4} fill="#3b82f6" />}
-            activeDot={{ r: 6 }}
-          />
-          <Line
-            type="monotone"
-            dataKey="converted"
-            name="Converted"
-            stroke="#10b981"
-            strokeWidth={2.5}
-            dot={<Dot r={4} fill="#10b981" />}
-            activeDot={{ r: 6 }}
-          />
-        </LineChart>
-      </ResponsiveContainer>
+      <div className="h-52 sm:h-72">
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart data={data}>
+            <CartesianGrid
+              strokeDasharray="3 3"
+              stroke="#e5e7eb"
+              vertical={false}
+            />
+            <XAxis
+              dataKey="month"
+              tick={{ fontSize: 12, fill: '#9ca3af' }}
+              axisLine={false}
+              tickLine={false}
+            />
+            <YAxis
+              tick={{ fontSize: 12, fill: '#9ca3af' }}
+              axisLine={false}
+              tickLine={false}
+            />
+            <Tooltip content={<ChartTooltip />} />
+            <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '16px' }} />
+            <Line
+              type="monotone"
+              dataKey="newLeads"
+              name="New Leads"
+              stroke="#3b82f6"
+              strokeWidth={2.5}
+              dot={<Dot r={4} fill="#3b82f6" />}
+              activeDot={{ r: 6 }}
+            />
+            <Line
+              type="monotone"
+              dataKey="converted"
+              name="Converted"
+              stroke="#10b981"
+              strokeWidth={2.5}
+              dot={<Dot r={4} fill="#10b981" />}
+              activeDot={{ r: 6 }}
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
     )}
   </ChartCard>
 );

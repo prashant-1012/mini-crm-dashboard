@@ -41,21 +41,28 @@ const Pagination = ({
           Previous
         </button>
 
-        {/* Page number buttons */}
-        {pages.map((page) => (
-          <button
-            key={page}
-            onClick={() => onPageChange(page)}
-            className={[
-              'w-9 h-9 text-sm rounded-lg border transition-colors',
-              page === currentPage
-                ? 'bg-blue-600 border-blue-600 text-white font-medium'
-                : 'border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800',
-            ].join(' ')}
-          >
-            {page}
-          </button>
-        ))}
+        {/* Page number buttons — hidden on mobile to prevent overflow */}
+        <div className="hidden sm:flex items-center gap-1">
+          {pages.map((page) => (
+            <button
+              key={page}
+              onClick={() => onPageChange(page)}
+              className={[
+                'w-9 h-9 text-sm rounded-lg border transition-colors',
+                page === currentPage
+                  ? 'bg-blue-600 border-blue-600 text-white font-medium'
+                  : 'border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800',
+              ].join(' ')}
+            >
+              {page}
+            </button>
+          ))}
+        </div>
+
+        {/* Mobile compact indicator */}
+        <span className="sm:hidden px-2 py-1.5 text-sm text-gray-500 dark:text-gray-400">
+          {currentPage} / {totalPages}
+        </span>
 
         {/* Next button */}
         <button

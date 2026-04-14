@@ -8,10 +8,10 @@ const ActivityPage = () => {
 
   return (
     <PageWrapper>
-    <div className="flex flex-col gap-6 max-w-2xl">
+    <div className="flex flex-col gap-6 w-full max-w-2xl">
 
       {/* Page header */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between flex-wrap gap-y-3">
         <div>
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
             Activity Feed

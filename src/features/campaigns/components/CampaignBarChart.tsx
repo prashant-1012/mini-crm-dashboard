@@ -38,32 +38,34 @@ const CampaignBarChart = ({ data, isLoading }: CampaignBarChartProps) => (
     {isLoading ? (
       <BarChartSkeleton />
     ) : (
-      <ResponsiveContainer width="100%" height={288}>
-        <BarChart data={data} barGap={4} barCategoryGap="30%">
-          <CartesianGrid
-            strokeDasharray="3 3"
-            stroke="#e5e7eb"
-            vertical={false}
-          />
-          <XAxis
-            dataKey="name"
-            tick={{ fontSize: 12, fill: '#9ca3af' }}
-            axisLine={false}
-            tickLine={false}
-          />
-          <YAxis
-            tick={{ fontSize: 12, fill: '#9ca3af' }}
-            axisLine={false}
-            tickLine={false}
-          />
-          <Tooltip content={<ChartTooltip />} cursor={{ fill: 'transparent' }} />
-          <Legend
-            wrapperStyle={{ fontSize: '12px', paddingTop: '16px' }}
-          />
-          <Bar dataKey="leads"     name="Leads"      fill="#3b82f6" radius={[4, 4, 0, 0]} />
-          <Bar dataKey="converted" name="Converted"  fill="#10b981" radius={[4, 4, 0, 0]} />
-        </BarChart>
-      </ResponsiveContainer>
+      <div className="h-52 sm:h-72">
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={data} barGap={4} barCategoryGap="30%">
+            <CartesianGrid
+              strokeDasharray="3 3"
+              stroke="#e5e7eb"
+              vertical={false}
+            />
+            <XAxis
+              dataKey="name"
+              tick={{ fontSize: 12, fill: '#9ca3af' }}
+              axisLine={false}
+              tickLine={false}
+            />
+            <YAxis
+              tick={{ fontSize: 12, fill: '#9ca3af' }}
+              axisLine={false}
+              tickLine={false}
+            />
+            <Tooltip content={<ChartTooltip />} cursor={{ fill: 'transparent' }} />
+            <Legend
+              wrapperStyle={{ fontSize: '12px', paddingTop: '16px' }}
+            />
+            <Bar dataKey="leads"     name="Leads"      fill="#3b82f6" radius={[4, 4, 0, 0]} />
+            <Bar dataKey="converted" name="Converted"  fill="#10b981" radius={[4, 4, 0, 0]} />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
     )}
   </ChartCard>
 );

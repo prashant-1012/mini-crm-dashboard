@@ -34,34 +34,36 @@ const LeadSourceDonut = ({ data, isLoading }: LeadSourceDonutProps) => {
       {isLoading ? (
         <DonutSkeleton />
       ) : (
-        <ResponsiveContainer width="100%" height={288}>
-          <PieChart>
-            <Pie
-              data={data}
-              dataKey="count"
-              nameKey="source"
-              cx="50%"
-              cy="50%"
-              innerRadius={70}
-              outerRadius={110}
-              paddingAngle={3}
-            >
-              {data.map((_, index) => (
-                <Cell
-                  key={index}
-                  fill={COLORS[index % COLORS.length]}
-                  stroke="transparent"
-                />
-              ))}
-            </Pie>
-            <Tooltip content={<ChartTooltip />} />
-            <Legend
-              iconType="circle"
-              iconSize={8}
-              wrapperStyle={{ fontSize: '12px' }}
-            />
-          </PieChart>
-        </ResponsiveContainer>
+        <div className="h-52 sm:h-72">
+          <ResponsiveContainer width="100%" height="100%">
+            <PieChart>
+              <Pie
+                data={data}
+                dataKey="count"
+                nameKey="source"
+                cx="50%"
+                cy="50%"
+                innerRadius={60}
+                outerRadius={95}
+                paddingAngle={3}
+              >
+                {data.map((_, index) => (
+                  <Cell
+                    key={index}
+                    fill={COLORS[index % COLORS.length]}
+                    stroke="transparent"
+                  />
+                ))}
+              </Pie>
+              <Tooltip content={<ChartTooltip />} />
+              <Legend
+                iconType="circle"
+                iconSize={8}
+                wrapperStyle={{ fontSize: '12px' }}
+              />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
       )}
     </ChartCard>
   );

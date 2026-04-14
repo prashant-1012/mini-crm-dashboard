@@ -18,7 +18,7 @@ const DashboardPage = () => {
 
       {/* Greeting */}
       <div>
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+        <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
           Good morning, Prashant 👋
         </h2>
         <p className="text-gray-500 dark:text-gray-400 mt-1 text-sm">

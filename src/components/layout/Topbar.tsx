@@ -10,21 +10,35 @@ const PAGE_TITLES: Record<string, string> = {
   '/activity':  'Activity Feed',
 };
 
-const Topbar = ({ title }: TopbarProps) => {
+const Topbar = ({ title, onMenuClick }: TopbarProps) => {
   const dispatch = useAppDispatch();
   const themeMode = useAppSelector((state) => state.theme.mode);
   const isDark = themeMode === 'dark';
 
   return (
-    <header className="h-16 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between px-6 flex-shrink-0 transition-colors duration-200">
+    <header className="h-16 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between px-4 sm:px-6 flex-shrink-0 transition-colors duration-200">
 
-      {/* Left — page title */}
-      <h1 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
-        {title}
-      </h1>
+      {/* Left — hamburger (mobile) + page title */}
+      <div className="flex items-center gap-3 min-w-0">
+
+        {/* Hamburger — visible on mobile only to open sidebar drawer */}
+        <button
+          onClick={onMenuClick}
+          className="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors lg:hidden flex-shrink-0"
+          aria-label="Open navigation menu"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" width={20} height={20}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          </svg>
+        </button>
+
+        <h1 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-gray-100 truncate">
+          {title}
+        </h1>
+      </div>
 
       {/* Right — actions */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
 
         {/* Dark mode toggle */}
         <button
@@ -56,15 +70,16 @@ const Topbar = ({ title }: TopbarProps) => {
           <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full" />
         </button>
 
-        {/* Divider */}
-        <div className="w-px h-6 bg-gray-200 dark:bg-gray-700" />
+        {/* Divider — hidden on mobile */}
+        <div className="hidden sm:block w-px h-6 bg-gray-200 dark:bg-gray-700" />
 
         {/* Avatar */}
         <div className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
             PK
           </div>
-          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+          {/* Name hidden on mobile */}
+          <span className="hidden sm:block text-sm font-medium text-gray-700 dark:text-gray-300">
             Prashant
           </span>
         </div>
@@ -74,10 +89,10 @@ const Topbar = ({ title }: TopbarProps) => {
   );
 };
 
-export const TopbarWithTitle = () => {
+export const TopbarWithTitle = ({ onMenuClick }: { onMenuClick?: () => void }) => {
   const location = useLocation();
   const title = PAGE_TITLES[location.pathname] ?? 'CRM Dashboard';
-  return <Topbar title={title} />;
+  return <Topbar title={title} onMenuClick={onMenuClick} />;
 };
 
 export default Topbar;
