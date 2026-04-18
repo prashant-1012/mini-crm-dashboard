@@ -114,11 +114,11 @@ const ActionCell = ({ lead, onEdit, onDelete }: { lead: Lead; onEdit: (l: Lead) 
 
 const COLUMN_CLASSES: Record<string, string> = {
   name:       '',
-  email:      'hidden sm:table-cell',
+  email:      '',
   status:     '',
-  source:     'hidden lg:table-cell',
+  source:     '',
   value:      '',
-  assignedTo: 'hidden lg:table-cell',
+  assignedTo: '',
   actions:    'w-20',
 };
 
