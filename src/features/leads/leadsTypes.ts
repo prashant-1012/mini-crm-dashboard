@@ -19,6 +19,8 @@ export interface LeadsState {
   // These live in Redux so filters survive navigation
   searchQuery: string;
   statusFilter: LeadStatus | 'All';
+  sourceFilter: string; // 'All' or a specific source
+  assignedToFilter: string; // 'All' or a specific person
   currentPage: number;
   pageSize: number;
 }

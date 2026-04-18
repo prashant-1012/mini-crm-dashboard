@@ -1,12 +1,32 @@
 import { useEffect, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHooks';
-import { fetchLeads, setSearchQuery, setStatusFilter, setCurrentPage } from '../leadsSlice';
+import { 
+  fetchLeads, 
+  setSearchQuery, 
+  setStatusFilter, 
+  setSourceFilter,
+  setAssignedToFilter,
+  setCurrentPage,
+  addLead,
+  updateLead,
+  deleteLead
+} from '../leadsSlice';
 import type { LeadStatus } from '../../../types/api.types';
+import type { Lead } from '../leadsTypes';
 
 export const useLeads = () => {
   const dispatch = useAppDispatch();
-  const { leads, status, error, searchQuery, statusFilter, currentPage, pageSize } =
-    useAppSelector((state) => state.leads);
+  const { 
+    leads, 
+    status, 
+    error, 
+    searchQuery, 
+    statusFilter, 
+    sourceFilter,
+    assignedToFilter,
+    currentPage, 
+    pageSize 
+  } = useAppSelector((state) => state.leads);
 
   useEffect(() => {
     if (status === 'idle') {
@@ -25,9 +45,15 @@ export const useLeads = () => {
       const matchesStatus =
         statusFilter === 'All' || lead.status === statusFilter;
 
-      return matchesSearch && matchesStatus;
+      const matchesSource =
+        sourceFilter === 'All' || lead.source === sourceFilter;
+
+      const matchesAssigned =
+        assignedToFilter === 'All' || lead.assignedTo === assignedToFilter;
+
+      return matchesSearch && matchesStatus && matchesSource && matchesAssigned;
     });
-  }, [leads, searchQuery, statusFilter]);
+  }, [leads, searchQuery, statusFilter, sourceFilter, assignedToFilter]);
 
   // Pagination math — slice the filtered array for current page
   const totalPages = Math.ceil(filteredLeads.length / pageSize);
@@ -43,11 +69,18 @@ export const useLeads = () => {
     error,
     searchQuery,
     statusFilter,
+    sourceFilter,
+    assignedToFilter,
     currentPage,
     totalPages,
     pageSize,
     setSearchQuery: (q: string) => dispatch(setSearchQuery(q)),
     setStatusFilter: (s: LeadStatus | 'All') => dispatch(setStatusFilter(s)),
+    setSourceFilter: (s: string) => dispatch(setSourceFilter(s)),
+    setAssignedToFilter: (a: string) => dispatch(setAssignedToFilter(a)),
     setCurrentPage: (p: number) => dispatch(setCurrentPage(p)),
+    addLead: (l: Lead) => dispatch(addLead(l)),
+    updateLead: (l: Lead) => dispatch(updateLead(l)),
+    deleteLead: (id: string) => dispatch(deleteLead(id)),
   };
 };

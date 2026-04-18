@@ -3,25 +3,36 @@ import type { LeadStatus } from '../../../types/api.types';
 interface LeadsToolbarProps {
   searchQuery: string;
   statusFilter: LeadStatus | 'All';
+  sourceFilter: string;
+  assignedToFilter: string;
   onSearchChange: (value: string) => void;
   onStatusChange: (value: LeadStatus | 'All') => void;
+  onSourceChange: (value: string) => void;
+  onAssignedToChange: (value: string) => void;
 }
 
 const STATUS_OPTIONS: Array<LeadStatus | 'All'> = [
   'All', 'New', 'Contacted', 'Converted', 'Lost'
 ];
 
+const SOURCE_OPTIONS = ['All', 'Website', 'Referral', 'LinkedIn', 'Email Campaign', 'Cold Call'];
+const ASSIGNEE_OPTIONS = ['All', 'Prashant Kumar', 'Sneha Joshi', 'Rahul Singh'];
+
 const LeadsToolbar = ({
   searchQuery,
   statusFilter,
+  sourceFilter,
+  assignedToFilter,
   onSearchChange,
   onStatusChange,
+  onSourceChange,
+  onAssignedToChange,
 }: LeadsToolbarProps) => {
   return (
-    <div className="flex flex-col sm:flex-row gap-3">
+    <div className="flex flex-col xl:flex-row gap-3">
 
       {/* Search input */}
-      <div className="relative flex-1">
+      <div className="relative flex-1 min-w-[240px]">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -43,18 +54,46 @@ const LeadsToolbar = ({
         />
       </div>
 
-      {/* Status filter dropdown */}
-      <select
-        value={statusFilter}
-        onChange={(e) => onStatusChange(e.target.value as LeadStatus | 'All')}
-        className="px-4 py-2.5 text-sm bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors cursor-pointer"
-      >
-        {STATUS_OPTIONS.map((option) => (
-          <option key={option} value={option}>
-            {option === 'All' ? 'All Statuses' : option}
-          </option>
-        ))}
-      </select>
+      <div className="flex flex-wrap gap-3">
+        {/* Status filter */}
+        <select
+          value={statusFilter}
+          onChange={(e) => onStatusChange(e.target.value as LeadStatus | 'All')}
+          className="px-4 py-2.5 text-sm bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors cursor-pointer"
+        >
+          {STATUS_OPTIONS.map((option) => (
+            <option key={option} value={option}>
+              {option === 'All' ? 'All Statuses' : option}
+            </option>
+          ))}
+        </select>
+
+        {/* Source filter */}
+        <select
+          value={sourceFilter}
+          onChange={(e) => onSourceChange(e.target.value)}
+          className="px-4 py-2.5 text-sm bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors cursor-pointer"
+        >
+          {SOURCE_OPTIONS.map((option) => (
+            <option key={option} value={option}>
+              {option === 'All' ? 'All Sources' : option}
+            </option>
+          ))}
+        </select>
+
+        {/* Assigned To filter */}
+        <select
+          value={assignedToFilter}
+          onChange={(e) => onAssignedToChange(e.target.value)}
+          className="px-4 py-2.5 text-sm bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors cursor-pointer"
+        >
+          {ASSIGNEE_OPTIONS.map((option) => (
+            <option key={option} value={option}>
+              {option === 'All' ? 'All Assignees' : option}
+            </option>
+          ))}
+        </select>
+      </div>
 
     </div>
   );
