@@ -54,6 +54,7 @@ const LeadsPage = () => {
   };
 
   return (
+    <>
     <PageWrapper>
       <div className="flex flex-col gap-6">
 
@@ -126,13 +127,15 @@ const LeadsPage = () => {
         </div>
       </div>
 
-      <AddEditLeadDrawer
-        isOpen={isDrawerOpen}
-        onClose={() => setIsDrawerOpen(false)}
-        onSubmit={handleDrawerSubmit}
-        initialData={editingLead}
-      />
     </PageWrapper>
+
+    <AddEditLeadDrawer
+      isOpen={isDrawerOpen}
+      onClose={() => setIsDrawerOpen(false)}
+      onSubmit={handleDrawerSubmit}
+      initialData={editingLead}
+    />
+    </>
   );
 };
 
