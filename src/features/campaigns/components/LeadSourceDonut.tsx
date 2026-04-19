@@ -34,17 +34,17 @@ const LeadSourceDonut = ({ data, isLoading }: LeadSourceDonutProps) => {
       {isLoading ? (
         <DonutSkeleton />
       ) : (
-        <div className="h-52 sm:h-72">
+        <div className="h-64 sm:h-72">
           <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
+            <PieChart margin={{ top: 8, right: 8, left: 8, bottom: 28 }}>
               <Pie
                 data={data}
                 dataKey="count"
                 nameKey="source"
                 cx="50%"
-                cy="50%"
-                innerRadius={60}
-                outerRadius={95}
+                cy="42%"
+                innerRadius="42%"
+                outerRadius="68%"
                 paddingAngle={3}
               >
                 {data.map((_, index) => (
@@ -59,6 +59,9 @@ const LeadSourceDonut = ({ data, isLoading }: LeadSourceDonutProps) => {
               <Legend
                 iconType="circle"
                 iconSize={8}
+                verticalAlign="bottom"
+                align="center"
+                height={36}
                 wrapperStyle={{ fontSize: '12px' }}
               />
             </PieChart>

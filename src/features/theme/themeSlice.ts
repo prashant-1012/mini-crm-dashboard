@@ -7,10 +7,10 @@ interface ThemeState {
 }
 
 // Read saved preference from localStorage on app start.
-// If nothing is saved yet, default to 'light'.
+// If nothing is saved yet, default to 'dark'.
 const getSavedTheme = (): ThemeMode => {
   const saved = localStorage.getItem('crm-theme');
-  return saved === 'dark' ? 'dark' : 'light';
+  return saved === 'light' ? 'light' : 'dark';
 };
 
 const initialState: ThemeState = {
