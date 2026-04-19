@@ -30,6 +30,8 @@ const AddEditLeadDrawer = ({ isOpen, onClose, onSubmit, initialData }: AddEditLe
     setValue,
     formState: { errors },
   } = useForm<Lead>({
+    mode: 'onChange',
+    reValidateMode: 'onChange',
     defaultValues: initialData || {
       status: 'New',
       source: 'Website',
@@ -127,7 +129,15 @@ const AddEditLeadDrawer = ({ isOpen, onClose, onSubmit, initialData }: AddEditLe
                   Full Name
                 </label>
                 <input
-                  {...register('name', { required: 'Name is required' })}
+                  {...register('name', {
+                    required: 'Name is required',
+                    minLength: { value: 2, message: 'Name must be at least 2 characters' },
+                    maxLength: { value: 50, message: 'Name cannot exceed 50 characters' },
+                    pattern: {
+                      value: /^[A-Za-z][A-Za-z\s'.-]*$/,
+                      message: 'Name can only contain letters and common name characters',
+                    },
+                  })}
                   type="text"
                   className={`w-full px-3 py-2 text-sm bg-gray-50 dark:bg-gray-800 border rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-4 transition-all ${
                     errors.name ? 'border-red-500 focus:ring-red-500/10' : 'border-gray-200 dark:border-gray-700 focus:ring-blue-500/10 focus:border-blue-500'
@@ -165,8 +175,20 @@ const AddEditLeadDrawer = ({ isOpen, onClose, onSubmit, initialData }: AddEditLe
                   Contact Number
                 </label>
                 <input
-                  {...register('phone', { required: 'Phone number is required' })}
-                  type="tel"
+                  {...register('phone', {
+                    required: 'Phone number is required',
+                    pattern: {
+                      value: /^\d{10}$/,
+                      message: 'Phone number must be exactly 10 digits',
+                    },
+                  })}
+                  type="text"
+                  inputMode="numeric"
+                  maxLength={10}
+                  onInput={(e) => {
+                    const input = e.currentTarget;
+                    input.value = input.value.replace(/\D/g, '').slice(0, 10);
+                  }}
                   className={`w-full px-3 py-2 text-sm bg-gray-50 dark:bg-gray-800 border rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-4 transition-all ${
                     errors.phone ? 'border-red-500 focus:ring-red-500/10' : 'border-gray-200 dark:border-gray-700 focus:ring-blue-500/10 focus:border-blue-500'
                   }`}
@@ -183,11 +205,18 @@ const AddEditLeadDrawer = ({ isOpen, onClose, onSubmit, initialData }: AddEditLe
                 <div className="relative">
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 font-medium text-sm">₹</span>
                   <input
-                    {...register('value', { required: 'Value is required', min: { value: 1, message: 'Value must be greater than 0' } })}
+                    {...register('value', {
+                      required: 'Value is required',
+                      valueAsNumber: true,
+                      min: { value: 1, message: 'Value must be greater than 0' },
+                      max: { value: 1000000000, message: 'Value seems too high' },
+                    })}
                     type="number"
-                    className={`w-full pl-7 pr-3 py-2 text-sm bg-gray-50 dark:bg-gray-800 border rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-4 transition-all ${
+                    className={`w-full pl-7 pr-3 py-2 text-sm bg-gray-50 dark:bg-gray-800 border rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-4 transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${
                       errors.value ? 'border-red-500 focus:ring-red-500/10' : 'border-gray-200 dark:border-gray-700 focus:ring-blue-500/10 focus:border-blue-500'
                     }`}
+                    min={1}
+                    onWheel={(e) => e.currentTarget.blur()}
                   />
                 </div>
                 {errors.value && <p className="mt-1 text-[11px] text-red-500 font-medium">{errors.value.message}</p>}
@@ -196,6 +225,10 @@ const AddEditLeadDrawer = ({ isOpen, onClose, onSubmit, initialData }: AddEditLe
 
             {/* Status Tags - Full Width */}
             <div className="pt-2">
+              <input
+                type="hidden"
+                {...register('status', { required: 'Lead status is required' })}
+              />
               <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">
                 Lead Status
               </label>
@@ -204,7 +237,7 @@ const AddEditLeadDrawer = ({ isOpen, onClose, onSubmit, initialData }: AddEditLe
                   <button
                     key={status}
                     type="button"
-                    onClick={() => setValue('status', status)}
+                    onClick={() => setValue('status', status, { shouldValidate: true, shouldDirty: true })}
                     className={`px-3 py-2 rounded-lg text-xs font-semibold border transition-all duration-200 flex items-center justify-center gap-1.5 flex-1 sm:flex-none ${
                       currentStatus === status
                         ? `${STATUS_COLORS[status]} ring-2 ${STATUS_COLORS[status].split(' ')[0].replace('bg-', 'ring-')}/20`
@@ -220,6 +253,7 @@ const AddEditLeadDrawer = ({ isOpen, onClose, onSubmit, initialData }: AddEditLe
                   </button>
                 ))}
               </div>
+              {errors.status && <p className="mt-1 text-[11px] text-red-500 font-medium">{errors.status.message}</p>}
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 pt-2">
@@ -230,8 +264,10 @@ const AddEditLeadDrawer = ({ isOpen, onClose, onSubmit, initialData }: AddEditLe
                 </label>
                 <div className="relative">
                   <select
-                    {...register('source')}
-                    className="w-full appearance-none px-3 py-2 text-sm bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all cursor-pointer"
+                    {...register('source', { required: 'Lead source is required' })}
+                    className={`w-full appearance-none px-3 py-2 text-sm bg-gray-50 dark:bg-gray-800 border rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-4 transition-all cursor-pointer ${
+                      errors.source ? 'border-red-500 focus:ring-red-500/10' : 'border-gray-200 dark:border-gray-700 focus:ring-blue-500/10 focus:border-blue-500'
+                    }`}
                   >
                     {SOURCES.map((s) => (
                       <option key={s} value={s}>
@@ -245,6 +281,7 @@ const AddEditLeadDrawer = ({ isOpen, onClose, onSubmit, initialData }: AddEditLe
                     </svg>
                   </div>
                 </div>
+                {errors.source && <p className="mt-1 text-[11px] text-red-500 font-medium">{errors.source.message}</p>}
               </div>
 
               {/* Assigned To Dropdown */}
@@ -254,8 +291,10 @@ const AddEditLeadDrawer = ({ isOpen, onClose, onSubmit, initialData }: AddEditLe
                 </label>
                 <div className="relative">
                   <select
-                    {...register('assignedTo')}
-                    className="w-full appearance-none px-3 py-2 text-sm bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all cursor-pointer"
+                    {...register('assignedTo', { required: 'Assignee is required' })}
+                    className={`w-full appearance-none px-3 py-2 text-sm bg-gray-50 dark:bg-gray-800 border rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-4 transition-all cursor-pointer ${
+                      errors.assignedTo ? 'border-red-500 focus:ring-red-500/10' : 'border-gray-200 dark:border-gray-700 focus:ring-blue-500/10 focus:border-blue-500'
+                    }`}
                   >
                     {ASSIGNEES.map((a) => (
                       <option key={a} value={a}>
@@ -269,6 +308,7 @@ const AddEditLeadDrawer = ({ isOpen, onClose, onSubmit, initialData }: AddEditLe
                     </svg>
                   </div>
                 </div>
+                {errors.assignedTo && <p className="mt-1 text-[11px] text-red-500 font-medium">{errors.assignedTo.message}</p>}
               </div>
             </div>
           </form>
