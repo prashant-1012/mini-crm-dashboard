@@ -113,7 +113,7 @@ const ActionCell = ({ lead, onEdit, onDelete }: { lead: Lead; onEdit: (l: Lead) 
 };
 
 const COLUMN_CLASSES: Record<string, string> = {
-  name:       '',
+  name:       'sticky left-0 md:static z-10 bg-white dark:bg-gray-900',
   email:      '',
   status:     '',
   source:     '',
@@ -159,7 +159,7 @@ const LeadsTable = ({ data, isLoading, onEdit, onDelete }: LeadsTableProps) => {
                 <th
                   key={header.id}
                   onClick={header.column.getToggleSortingHandler()}
-                  className={`px-4 py-3 text-left text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider select-none cursor-pointer hover:text-gray-700 dark:hover:text-gray-200 transition-colors ${COLUMN_CLASSES[header.column.id] ?? ''}`}
+                  className={`px-4 py-3 text-left text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider select-none cursor-pointer hover:text-gray-700 dark:hover:text-gray-200 transition-colors ${header.column.id === 'name' ? 'sticky left-0 md:static z-20 bg-gray-50 dark:bg-gray-800/60' : ''} ${COLUMN_CLASSES[header.column.id] ?? ''}`}
                 >
                   <div className="flex items-center gap-1.5">
                     {flexRender(header.column.columnDef.header, header.getContext())}
@@ -180,10 +180,13 @@ const LeadsTable = ({ data, isLoading, onEdit, onDelete }: LeadsTableProps) => {
             : table.getRowModel().rows.map((row) => (
                 <tr
                   key={row.id}
-                  className="hover:bg-gray-50 dark:hover:bg-gray-800/40 transition-colors"
+                  className="group hover:bg-gray-50 dark:hover:bg-gray-800/40 transition-colors"
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <td key={cell.id} className={`px-4 py-3.5 whitespace-nowrap ${COLUMN_CLASSES[cell.column.id] ?? ''}`}>
+                    <td
+                      key={cell.id}
+                      className={`px-4 py-3.5 whitespace-nowrap ${cell.column.id === 'name' ? 'group-hover:bg-gray-50 dark:group-hover:bg-gray-800/40' : ''} ${COLUMN_CLASSES[cell.column.id] ?? ''}`}
+                    >
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </td>
                   ))}

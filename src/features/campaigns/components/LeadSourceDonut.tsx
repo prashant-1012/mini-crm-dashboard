@@ -42,9 +42,9 @@ const LeadSourceDonut = ({ data, isLoading }: LeadSourceDonutProps) => {
                 dataKey="count"
                 nameKey="source"
                 cx="50%"
-                cy="42%"
-                innerRadius="42%"
-                outerRadius="68%"
+                cy="40%"
+                innerRadius="52%"
+                outerRadius="76%"
                 paddingAngle={3}
               >
                 {data.map((_, index) => (
